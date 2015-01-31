@@ -46,3 +46,20 @@ Product.create name:        'Tomate queso fresco',
                description: 'Pan con tomate y queso fresco',
                price:       750,
                image:       'http://lorempixel.com/300/300/food/4/'
+               
+               
+# Order creation
+Order.delete_all
+
+30.times do |i|
+  customer = Customer.order("RANDOM()").first
+  product = Product.order("RANDOM()").first
+  
+  Order.create customer: customer,
+               product:  product,
+               quantity: Random.rand(1..4),
+               paid: (Random.rand(0..1) == 0) ? false : true
+end
+
+               
+               
