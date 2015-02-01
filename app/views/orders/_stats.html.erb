@@ -1,3 +1,28 @@
-<div>
-    Unpaid total: <%= OrderCalculator.unpaid_total %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Resumen</h3>
+  </div>
+  <div class="panel-body">
+    <div class="table-responsive">
+        <table class="table">
+            <tr>
+                <td><%= icon 'shopping-cart'  %> <strong>Ventas Totales:</strong></td>
+                <td><%= Order.count %></td>
+            </tr>
+            <tr>
+                <td><%= icon 'check-square-o'  %> <strong>Ventas pagadas:</strong></td>
+                <td><%= Order.paid.count %></td>
+            </tr>
+            <tr>
+                <td><%= icon 'money'  %> <strong>Ingresos Totales:</strong></td>
+                <td>$ <%= OrderCalculator.paid_total %></td>
+            </tr>
+            <tr>
+                <td><%= icon 'exclamation-triangle'  %> <strong>Deuda Total:</strong></td>
+                <td>$ <%= OrderCalculator.unpaid_total %></td>
+            </tr>
+        </table>
+    </div>
+    
+  </div>
 </div>

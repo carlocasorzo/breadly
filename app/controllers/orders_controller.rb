@@ -10,8 +10,7 @@ class OrdersController < ApplicationController
   # GET /orders/historic
   # GET /orders/historic.json
   def historic
-    @orders = Order.latest
-    render 'index'
+    @orders = Order.paid.latest
   end
 
   # GET /orders/new
@@ -33,10 +32,12 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(order_params)
+    
+    redirect_path = @order.paid? ? historic_orders_path : orders_path
 
     respond_to do |format|
       if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
+        format.html { redirect_to redirect_path, notice: 'La orden fue creada.' }
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new }
@@ -50,7 +51,8 @@ class OrdersController < ApplicationController
   def update
     respond_to do |format|
       if @order.update(order_params)
-        format.html { redirect_to @order, notice: 'Order was successfully updated.' }
+        redirect_path = @order.paid? ? historic_orders_path : orders_path
+        format.html { redirect_to redirect_path, notice: 'La orden fue actualizada.' }
         format.json { render :show, status: :ok, location: @order }
       else
         format.html { render :edit }
@@ -64,7 +66,7 @@ class OrdersController < ApplicationController
   def destroy
     @order.destroy
     respond_to do |format|
-      format.html { redirect_to orders_url, notice: 'Order was successfully destroyed.' }
+      format.html { redirect_to orders_url, notice: 'La orden fue eliminada.' }
       format.json { head :no_content }
     end
   end

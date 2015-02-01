@@ -1,7 +1,7 @@
 <%= form_for(@order) do |f| %>
   <% if @order.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+      <strong><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</strong>
 
       <ul>
       <% @order.errors.full_messages.each do |message| %>
@@ -10,29 +10,37 @@
       </ul>
     </div>
   <% end %>
+  
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= f.label :producto, class: 'control-label' %>
+        <%= f.select :product_id, Product.all.map{ |p| [p.name, p.id ] }, { include_blank: false }, { class: 'form-control' } %>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= f.label :cantidad, class: 'control-label' %>
+        <%= f.number_field :quantity, class: 'form-control' %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <%= f.label :cliente, class: 'control-label' %>
+        <%= f.select :customer_id, Customer.all.map{ |c| [c.name, c.id ] }, { include_blank: false }, { class: 'form-control' } %>
+      </div>
+      <div class="checkbox">
+        <label> <%= f.check_box :paid %> Pagado </label>
+      </div>
+    </div>
+  </div>
 
-  <div class="field">
-    <%= f.label :total_cost %><br>
-    <%= f.text_field :total_cost %>
-  </div>
-  <div class="field">
-    <%= f.label :quantity %><br>
-    <%= f.number_field :quantity %>
-  </div>
-  <div class="field">
-    <%= f.label :customer %><br>
-    <%= f.select :customer_id, Customer.all.map{ |c| [c.name, c.id ] } %>
-  </div>
-  <div class="field">
-    <%= f.label :product %><br>
-    <%= f.select :product_id, Product.all.map{ |p| [p.name, p.id ] } %>
-  </div>
-  <div class="field">
-    <%= f.label :paid? %><br>
-    <%= f.check_box :paid %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
+  <div class="row">
+    <div class="col-md-12">
+      <%= f.submit 'Guardar orden', class: 'btn btn-primary' %>
+      <%= link_to 'Cancelar', orders_path, class: 'btn btn-default' %>
+    </div>
   </div>
 <% end %>
