@@ -4,6 +4,15 @@ class Order < ActiveRecord::Base
   
   before_create :calculate_total_cost
   
+  scope :latest, -> { order 'created_at DESC' }
+  scope :paid, -> { where paid: true }
+  scope :unpaid, -> { where paid: false }
+  
+  def pay
+    self.paid = true
+    self.save
+  end
+  
   
   private
     def calculate_total_cost

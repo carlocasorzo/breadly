@@ -1,15 +1,17 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_order, only: [:show, :pay, :edit, :update, :destroy]
 
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+    @orders = Order.unpaid.latest
   end
-
-  # GET /orders/1
-  # GET /orders/1.json
-  def show
+  
+  # GET /orders/historic
+  # GET /orders/historic.json
+  def historic
+    @orders = Order.latest
+    render 'index'
   end
 
   # GET /orders/new
@@ -20,6 +22,12 @@ class OrdersController < ApplicationController
   # GET /orders/1/edit
   def edit
   end
+  
+  # GET /orders/1/pay
+  def pay
+    @order.pay
+    redirect_to orders_url, notice: 'La orden fue pagada.'
+  end  
 
   # POST /orders
   # POST /orders.json
