@@ -32,12 +32,10 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(order_params)
-    
-    redirect_path = @order.paid? ? historic_orders_path : orders_path
 
     respond_to do |format|
       if @order.save
-        format.html { redirect_to redirect_path, notice: 'La orden fue creada.' }
+        format.html { redirect_to order_redirect_path(@order), notice: 'La orden fue creada.' }
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new }
@@ -51,8 +49,7 @@ class OrdersController < ApplicationController
   def update
     respond_to do |format|
       if @order.update(order_params)
-        redirect_path = @order.paid? ? historic_orders_path : orders_path
-        format.html { redirect_to redirect_path, notice: 'La orden fue actualizada.' }
+        format.html { redirect_to order_redirect_path(@order), notice: 'La orden fue actualizada.' }
         format.json { render :show, status: :ok, location: @order }
       else
         format.html { render :edit }
@@ -79,6 +76,11 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:Order, :total_cost, :quantity, :customer_id, :product_id, :paid)
+      params.require(:order).permit(:quantity, :customer_id, :product_id, :paid)
+    end
+    
+    # Determines the path to redirect according to the payment status of the given order
+    def order_redirect_path(order)
+      order.paid? ? historic_orders_path : orders_path
     end
 end
