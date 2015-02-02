@@ -1,0 +1,37 @@
+<div class="table-responsive">
+  <table class="table table-stripped">
+    <thead>
+      <tr>
+        <th colspan="1"></th>
+        <th>Nombre</th>
+        <th>Ventas totales</th>
+        <th>Ingreso generado</th>
+        <th>Deuda total</th>
+        <th colspan="1"></th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <% @products.each do |product| %>
+        <tr>
+            <td>
+                <%= link_to product do %>
+                    <%= image_tag product.image, class: 'img-responsive img-rounded', size: '48x48' %> 
+                <% end %>
+            </td>
+            <td><%= link_to product.name, product %></td>
+            <td><%= product.total_sales %></td>
+            <td>$<%= product.total_income %></td>
+            <td>$<%= product.total_debt %></td>
+            <td>
+                <div class="btn-group btn-group-xs" role="group">
+                  <%= link_to product, class: 'btn btn-default' do %>
+                      <%= icon 'cutlery' %> Ver detalles
+                  <% end %>
+                </div>
+            </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

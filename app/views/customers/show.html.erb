@@ -1,9 +1,54 @@
-<p id="notice"><%= notice %></p>
+<h3><strong>Cliente: </strong><%= @customer.name %></h3>
+<div class="row">
+  <div class="col-md-6">
+    <div class="table-responsive">
+      <table class="table">
+        <tr>
+          <td><%= icon 'shopping-cart'  %> <strong>Ventas totales:</strong></td>
+          <td><%= @customer.orders.count %></td>
+        </tr>
+        <tr>
+          <td><%= icon 'check-square-o'  %> <strong>Ventas pagadas:</strong></td>
+          <td><%= @customer.orders.paid.count %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="table-responsive">
+      <table class="table">
+        <tr>
+          <td><%= icon 'money'  %> <strong>Ingresos generados:</strong></td>
+          <td>$<%= @customer.total_income %></td>
+        </tr>
+        <tr>
+          <td><%= icon 'exclamation-triangle'  %> <strong>Deuda total:</strong></td>
+          <td>$<%= @customer.total_debt %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @customer.name %>
-</p>
+<div class="row">
+  <div class="col-md-12">
+    <h3>Órdenes</h3>
+    <%= render 'orders/order_table' %>
+  </div>
+</div>
 
-<%= link_to 'Edit', edit_customer_path(@customer) %> |
-<%= link_to 'Back', customers_path %>
+<div class="row">
+  <div class="col-md-12">
+    <div class="btn-group" role="group">
+      <%= link_to edit_customer_path(@customer), class: 'btn btn-primary' do %>
+          <%= icon 'pencil-square-o' %> Editar
+      <% end %>
+      <%= link_to customers_path, class: 'btn btn-default' do %>
+          <%= icon 'users' %> Volver
+      <% end %>
+      <%= link_to customer_path(@customer), class: 'btn btn-default', method: :delete, data: { confirm: '¿Estas seguro?' } do %>
+          <%= icon 'trash-o' %> Eliminar
+      <% end %>
+    </div>
+  </div>
+</div>

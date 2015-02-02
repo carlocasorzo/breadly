@@ -1,24 +1,58 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @product.name %>
-</p>
-
-<p>
-  <strong>Description:</strong>
+<h3><%= @product.name %></h3>
+<p class="lead">
   <%= @product.description %>
 </p>
+<div class="row">
+  <div class="col-md-4">
+    <%= image_tag @product.image, class: 'img-responsive img-rounded' %>
+  </div>
+  <div class="col-md-8">
+    <div class="table-responsive">
+      <table class="table">
+        <tr>
+          <td><%= icon 'dollar'  %> <strong>Precio:</strong></td>
+          <td>$<%= @product.price %></td>
+        </tr>
+        <tr>
+          <td><%= icon 'shopping-cart'  %> <strong>Ventas totales:</strong></td>
+          <td><%= @product.orders.count %></td>
+        </tr>
+        <tr>
+          <td><%= icon 'check-square-o'  %> <strong>Ventas pagadas:</strong></td>
+          <td><%= @product.orders.paid.count %></td>
+        </tr>
+        <tr>
+          <td><%= icon 'money'  %> <strong>Ingresos generados:</strong></td>
+          <td>$<%= @product.total_income %></td>
+        </tr>
+        <tr>
+          <td><%= icon 'exclamation-triangle'  %> <strong>Deuda total:</strong></td>
+          <td>$<%= @product.total_debt %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>Price:</strong>
-  <%= @product.price %>
-</p>
+<div class="row">
+  <div class="col-md-12">
+    <h3>Órdenes</h3>
+    <%= render 'orders/order_table' %>
+  </div>
+</div>
 
-<p>
-  <strong>Image:</strong>
-  <%= @product.image %>
-</p>
-
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>
+<div class="row">
+  <div class="col-md-12">
+    <div class="btn-group" role="group">
+      <%= link_to edit_product_path(@product), class: 'btn btn-primary' do %>
+          <%= icon 'pencil-square-o' %> Editar
+      <% end %>
+      <%= link_to products_path, class: 'btn btn-default' do %>
+          <%= icon 'cutlery' %> Volver
+      <% end %>
+      <%= link_to product_path(@product), class: 'btn btn-default', method: :delete, data: { confirm: '¿Estas seguro?' } do %>
+          <%= icon 'trash-o' %> Eliminar
+      <% end %>
+    </div>
+  </div>
+</div>

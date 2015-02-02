@@ -11,11 +11,14 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="row">
+    <div class="col-md-12">
+      <%= f.submit 'Guardar cliente', class: 'btn btn-primary' %>
+      <%= link_to 'Cancelar', customers_path, class: 'btn btn-default' %>
+    </div>
   </div>
 <% end %>

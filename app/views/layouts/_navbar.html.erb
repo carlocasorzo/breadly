@@ -9,7 +9,7 @@
         <span class="icon-bar"></span>
       </button>
       <%= link_to root_path, class: 'navbar-brand' do %>
-        <%= icon('cutlery', 'Breadly') %>
+        <%= icon 'cutlery', 'Breadly' %>
       <% end %>
       <p class="navbar-text">Tu desayuno durante Desafío Latam</p>
     </div>
@@ -18,7 +18,9 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Órdenes <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <%= icon 'shopping-cart', 'Órdenes' %> <span class="caret"></span>
+          </a>
           <ul class="dropdown-menu" role="menu">
             <li>
               <%= link_to orders_path do %>
@@ -39,17 +41,39 @@
           </ul>
         </li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Productos <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <%= icon 'cutlery', 'Productos' %> <span class="caret"></span>
+          </a>
           <ul class="dropdown-menu" role="menu">
-            <li><%= link_to 'Ingresar nuevo producto', new_product_path %></li>
-            <li><%= link_to 'Ver todos', products_path %></li>
+            <li>
+              <%= link_to products_path do %>
+                <%= icon 'list-ul', 'Ver todos' %> 
+              <% end %>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <%= link_to new_order_path do %>
+                <%= icon 'cutlery', 'Nuevo producto' %> 
+              <% end %>
+            </li>
           </ul>
         </li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Clientes <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <%= icon 'users', 'Clientes' %> <span class="caret"></span>
+          </a>
           <ul class="dropdown-menu" role="menu">
-            <li><%= link_to 'Ingresar nuevo cliente', new_customer_path %></li>
-            <li><%= link_to 'Ver todos', customers_path %></li>
+            <li>
+              <%= link_to customers_path do %>
+                <%= icon 'list-ul', 'Ver todos' %> 
+              <% end %>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <%= link_to new_customer_path do %>
+                <%= icon 'user', 'Nuevo cliente' %> 
+              <% end %>
+            </li>
           </ul>
         </li>
         <li>
