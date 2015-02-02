@@ -1,7 +1,7 @@
 <%= form_for(@product) do |f| %>
   <% if @product.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+      <%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:
 
       <ul>
       <% @product.errors.full_messages.each do |message| %>
@@ -11,23 +11,26 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="form-group">
+    <%= f.label :nombre %>
+    <%= f.text_field :name, class: 'form-control' %>
   </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
+  <div class="form-group">
+    <%= f.label :descripcion %>
+    <%= f.text_area :description, class: 'form-control'  %>
   </div>
-  <div class="field">
-    <%= f.label :price %><br>
-    <%= f.text_field :price %>
+  <div class="form-group">
+    <%= f.label :precio %>
+    <%= f.text_field :price, class: 'form-control'  %>
   </div>
-  <div class="field">
-    <%= f.label :image %><br>
-    <%= f.text_field :image %>
+  <div class="form-group">
+    <%= f.label :imagen %>
+    <%= f.text_field :image, class: 'form-control'  %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="row">
+    <div class="col-md-12">
+      <%= f.submit 'Guardar producto', class: 'btn btn-primary' %>
+      <%= link_to 'Cancelar', products_path, class: 'btn btn-default' %>
+    </div>
   </div>
 <% end %>

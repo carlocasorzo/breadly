@@ -2,6 +2,11 @@ class Product < ActiveRecord::Base
   has_many :orders
   has_many :customers, through: :orders
   
+  validates :name, presence: true
+  validates :description, length: { maximum: 1000 }, presence: true
+  validates :price, presence: true, numericality: {greater_than: 0}
+  validates :image, presence: true
+  
   def total_sales
     self.orders.inject(0) { |sum, order| sum += order.quantity  }
   end
