@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :orders, except: [:show] do
+  resources :orders, except: [:show, :edit] do
     get 'historic', on: :collection
     get 'pay', on: :member
   end

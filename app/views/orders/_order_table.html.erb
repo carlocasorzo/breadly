@@ -7,7 +7,6 @@
         <th>Cliente</th>
         <th>Producto</th>
         <th colspan="1"></th>
-        <th colspan="1"></th>
       </tr>
     </thead>
   
@@ -19,17 +18,13 @@
             <td><%= link_to order.customer.name, order.customer %></td>
             <td><%= link_to order.product.name, order.product %></td>
             <td>
-                <%= link_to pay_order_path(order), class: 'btn btn-primary btn-xs' do %>
-                    <%= icon 'check-square-o' %> Pagar
-                <% end %>
                 <div class="btn-group btn-group-xs" role="group" aria-label="...">
-            </td>
-            <td>
-                <div class="btn-group btn-group-xs" role="group" aria-label="...">
-                  <%= link_to edit_order_path(order), class: 'btn btn-default' do %>
-                      <%= icon 'pencil-square-o' %> Editar
+                  <% unless order.paid? %>
+                    <%= link_to pay_order_path(order), class: 'btn btn-primary btn-xs' do %>
+                        <%= icon 'check-square-o' %> Pagar
+                    <% end %>
                   <% end %>
-                  <%= link_to edit_order_path(order), class: 'btn btn-default', method: :delete, data: { confirm: '¿Estas seguro?' } do %>
+                  <%= link_to order_path(order), class: 'btn btn-default', method: :delete, data: { confirm: '¿Estas seguro?' } do %>
                       <%= icon 'trash-o' %> Eliminar
                   <% end %>
                 </div>
